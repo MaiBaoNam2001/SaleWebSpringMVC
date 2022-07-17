@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +26,10 @@
 					<li class="nav-item"><a class="nav-link"
 						href="javascript:void(0)">Trang chủ</a></li>
 					<c:forEach items="${categories}" var="category">
-						<li class="nav-item"><a class="nav-link"
-							href="javascript:void(0)">${category}</a></li>
+						<c:url value="/" var="cUrl">
+							<c:param name="cateId" value="${category.id}"></c:param>
+						</c:url>
+						<li class="nav-item"><a class="nav-link" href="${cUrl}">${category.name}</a></li>
 					</c:forEach>
 				</ul>
 				<c:url value="/" var="action"></c:url>
@@ -40,16 +43,24 @@
 	</nav>
 
 	<div class="container">
+		<c:if test="${products.size() == 0}">
+			<p>
+				<em>Không có sản phẩm nào!</em>
+			</p>
+		</c:if>
 		<div class="row">
 			<c:forEach items="${products}" var="product">
 				<div class="col-md-3 col-xs-12 p-2">
 					<div class="card">
 						<img class="card-img-top img-fluid"
 							src="https://cdn.tgdd.vn/Products/Images/522/238626/ipad-pro-2021-11-inch-silver-600x600.jpg"
-							alt="Card image">
+							alt="${product.name}">
 						<div class="card-body">
-							<h4 class="card-title">${product}</h4>
-							<p class="card-text">25.000.000 VND</p>
+							<h4 class="card-title">${product.name}</h4>
+							<p class="card-text">
+								<fmt:setLocale value="vi_VN" />
+								<fmt:formatNumber value="${product.price}" type="currency" />
+							</p>
 							<a href="#" class="btn btn-primary">Xem chi tiết</a>
 						</div>
 					</div>
