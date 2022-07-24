@@ -1,6 +1,8 @@
+com\mbn\controllers\ProductController.class
 com\mbn\configs\HibernateConfig.class
 com\mbn\pojo\Category.class
 com\mbn\service\CategoryService.class
+com\mbn\controllers\ApiProductController.class
 com\mbn\repository\implement\CategoryRepositoryImplement.class
 com\mbn\configs\WebAppContextConfig.class
 com\mbn\pojo\OrderDetail.class
@@ -9,6 +11,7 @@ com\mbn\service\ProductService.class
 com\mbn\repository\CategoryRepository.class
 com\mbn\pojo\Product.class
 com\mbn\configs\DispatcherServletInit.class
+com\mbn\configs\TilesConfig.class
 com\mbn\repository\ProductRepository.class
 com\mbn\pojo\SaleOrder.class
 com\mbn\service\implement\CategoryServiceImplement.class

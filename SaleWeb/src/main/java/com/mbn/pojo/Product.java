@@ -2,28 +2,30 @@ package com.mbn.pojo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
-
 
 /**
  * The persistent class for the product database table.
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private byte active;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_date")
+	@Column(name = "created_date")
 	private Date createdDate;
 
 	private String description;
@@ -36,12 +38,14 @@ public class Product implements Serializable {
 
 	private BigDecimal price;
 
-	//bi-directional many-to-one association to OrderDetail
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to OrderDetail
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
 	private Set<OrderDetail> orderDetails;
 
-	//bi-directional many-to-one association to Category
+	// bi-directional many-to-one association to Category
 	@ManyToOne
+	@JsonIgnore
 	private Category category;
 
 	public Product() {

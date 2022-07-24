@@ -42,7 +42,8 @@ public class ProductRepositoryImplement implements ProductRepository {
 		if (params != null) {
 			List<Predicate> predicates = new ArrayList<>();
 			if (params.containsKey("keyword") == true) {
-				Predicate p1 = b.like(root.get("name").as(String.class), String.format("%%%s%%", params.get("keyword")));
+				Predicate p1 = b.like(root.get("name").as(String.class),
+						String.format("%%%s%%", params.get("keyword")));
 				predicates.add(p1);
 			}
 
@@ -80,6 +81,13 @@ public class ProductRepositoryImplement implements ProductRepository {
 		}
 
 		return query.getResultList();
+	}
+
+	@Override
+	public int countProduct() {
+		Session session = sessionFactory.getObject().getCurrentSession();
+		Query query = session.createQuery("SELECT Count(*) FROM Product");
+		return Integer.parseInt(query.getSingleResult().toString());
 	}
 
 }

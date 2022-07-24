@@ -7,4 +7,6 @@ import com.mbn.pojo.Product;
 
 public interface ProductRepository {
 	List<Product> getProducts(Map<String, String> params, int page);
+
+	int countProduct();
 }
