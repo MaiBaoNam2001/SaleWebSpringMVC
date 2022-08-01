@@ -16,5 +16,6 @@ com\mbn\repository\ProductRepository.class
 com\mbn\pojo\SaleOrder.class
 com\mbn\service\implement\CategoryServiceImplement.class
 com\mbn\controllers\IndexController.class
+com\mbn\formatters\CategoryFormatter.class
 com\mbn\service\implement\ProductServiceImplement.class
 com\mbn\repository\implement\ProductRepositoryImplement.class

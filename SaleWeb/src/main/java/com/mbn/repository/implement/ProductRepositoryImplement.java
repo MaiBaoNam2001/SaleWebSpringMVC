@@ -90,4 +90,29 @@ public class ProductRepositoryImplement implements ProductRepository {
 		return Integer.parseInt(query.getSingleResult().toString());
 	}
 
+	@Override
+	public boolean addProduct(Product product) {
+		Session session = sessionFactory.getObject().getCurrentSession();
+		try {
+			product.setImage("https://cdn.tgdd.vn/Products/Images/522/238626/ipad-pro-2021-11-inch-silver-600x600.jpg");
+			session.save(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteProduct(int productId) {
+		Session session = sessionFactory.getObject().getCurrentSession();
+		try {
+			Product product = session.get(Product.class, productId);
+			session.delete(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

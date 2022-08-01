@@ -2,6 +2,9 @@ package com.mbn.pojo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,8 +37,11 @@ public class Product implements Serializable {
 
 	private String manufacturer;
 
+	@Size(min = 1, max = 50, message = "{product.name.sizeErr}")
 	private String name;
 
+	@Min(value = 10000, message = "{product.price.minErr}")
+	@Max(value = 100000000, message = "{product.price.maxErr}")
 	private BigDecimal price;
 
 	// bi-directional many-to-one association to OrderDetail

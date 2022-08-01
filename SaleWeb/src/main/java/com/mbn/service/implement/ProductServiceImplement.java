@@ -28,4 +28,14 @@ public class ProductServiceImplement implements ProductService {
 		return this.productRepository.countProduct();
 	}
 
+	@Override
+	public boolean addProduct(Product product) {
+		return this.productRepository.addProduct(product);
+	}
+
+	@Override
+	public boolean deleteProduct(int productId) {
+		return this.productRepository.deleteProduct(productId);
+	}
+
 }
