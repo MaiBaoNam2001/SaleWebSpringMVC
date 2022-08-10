@@ -37,4 +37,11 @@ public class ProductController {
 		}
 		return "products";
 	}
+
+	@GetMapping("/categoryStats")
+	public String categoryStats(Model model) {
+		model.addAttribute("stats", productService.categoryStats());
+		model.addAttribute("stats2", productService.revenueStats());
+		return "categoryStats";
+	}
 }

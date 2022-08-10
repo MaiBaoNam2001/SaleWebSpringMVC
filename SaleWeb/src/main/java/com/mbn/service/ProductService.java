@@ -13,4 +13,8 @@ public interface ProductService {
 	boolean addProduct(Product product);
 
 	boolean deleteProduct(int productId);
+
+	List<Object[]> categoryStats();
+
+	List<Object[]> revenueStats();
 }

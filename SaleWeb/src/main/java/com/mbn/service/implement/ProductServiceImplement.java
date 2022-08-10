@@ -38,4 +38,14 @@ public class ProductServiceImplement implements ProductService {
 		return this.productRepository.deleteProduct(productId);
 	}
 
+	@Override
+	public List<Object[]> categoryStats() {
+		return this.productRepository.categoryStats();
+	}
+
+	@Override
+	public List<Object[]> revenueStats() {
+		return this.productRepository.revenueStats();
+	}
+
 }

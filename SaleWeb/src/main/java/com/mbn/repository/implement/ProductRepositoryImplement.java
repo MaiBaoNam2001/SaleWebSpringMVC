@@ -19,7 +19,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
+import com.mbn.pojo.Category;
+import com.mbn.pojo.OrderDetail;
 import com.mbn.pojo.Product;
+import com.mbn.pojo.SaleOrder;
 import com.mbn.repository.ProductRepository;
 
 @Repository
@@ -114,5 +117,45 @@ public class ProductRepositoryImplement implements ProductRepository {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<Object[]> categoryStats() {
+		Session session = sessionFactory.getObject().getCurrentSession();
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+
+		Root<Product> pRoot = criteriaQuery.from(Product.class);
+		Root<Category> cRoot = criteriaQuery.from(Category.class);
+		criteriaQuery.where(criteriaBuilder.equal(pRoot.get("category"), cRoot.get("id")));
+
+		criteriaQuery.multiselect(cRoot.get("id"), cRoot.get("name"), criteriaBuilder.count(pRoot.get("id")));
+		criteriaQuery.groupBy(cRoot.get("id"));
+
+		Query query = session.createQuery(criteriaQuery);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Object[]> revenueStats() {
+		Session session = sessionFactory.getObject().getCurrentSession();
+
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<Product> pRoot = criteriaQuery.from(Product.class);
+		Root<OrderDetail> odRoot = criteriaQuery.from(OrderDetail.class);
+		Root<SaleOrder> sRoot = criteriaQuery.from(SaleOrder.class);
+
+		Predicate predicate = criteriaBuilder
+				.equal(criteriaBuilder.function("QUARTER", Integer.class, sRoot.get("createdDate")), 1);
+		criteriaQuery.where(criteriaBuilder.equal(pRoot.get("id"), odRoot.get("product")),
+				criteriaBuilder.equal(odRoot.get("saleOrder"), sRoot.get("id")), predicate);
+
+		criteriaQuery.multiselect(pRoot.get("id"), pRoot.get("name"),
+				criteriaBuilder.sum(criteriaBuilder.prod(odRoot.get("num"), odRoot.get("unitPrice"))));
+		criteriaQuery.groupBy(pRoot.get("id"));
+
+		Query query = session.createQuery(criteriaQuery);
+		return query.getResultList();
 	}
 }
