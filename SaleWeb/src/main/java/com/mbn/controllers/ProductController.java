@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,5 +44,11 @@ public class ProductController {
 		model.addAttribute("stats", productService.categoryStats());
 		model.addAttribute("stats2", productService.revenueStats());
 		return "categoryStats";
+	}
+
+	@GetMapping("/products/{productId}")
+	public String details(Model model, @PathVariable(value = "productId") int productId) {
+		model.addAttribute("product", productService.getProductById(productId));
+		return "details";
 	}
 }

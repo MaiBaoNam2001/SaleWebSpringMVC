@@ -17,4 +17,6 @@ public interface ProductRepository {
 	List<Object[]> categoryStats();
 
 	List<Object[]> revenueStats();
+
+	Product getProductById(int productId);
 }

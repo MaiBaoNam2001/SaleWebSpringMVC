@@ -1,15 +1,18 @@
 package com.mbn.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -17,24 +20,28 @@ public class User implements Serializable {
 
 	private String email;
 
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
 	private String password;
 
 	private String phone;
 
-	@Column(name="user_role")
+	@Column(name = "user_role")
 	private String userRole;
 
 	private String username;
+
+	@OneToMany
+	@JsonIgnore
+	private Set<Comment> comments;
 
 	public User() {
 	}
@@ -111,4 +118,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 }

@@ -53,6 +53,9 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private Category category;
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	private Set<Comment> comments;
 
 	public Product() {
 	}
@@ -151,4 +154,11 @@ public class Product implements Serializable {
 		this.category = category;
 	}
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 }

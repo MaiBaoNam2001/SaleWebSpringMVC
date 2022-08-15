@@ -6,5 +6,6 @@
 		<class>com.mbn.pojo.Product</class>
 		<class>com.mbn.pojo.SaleOrder</class>
 		<class>com.mbn.pojo.User</class>
+		<class>com.mbn.pojo.Comment</class>
 	</persistence-unit>
 </persistence>

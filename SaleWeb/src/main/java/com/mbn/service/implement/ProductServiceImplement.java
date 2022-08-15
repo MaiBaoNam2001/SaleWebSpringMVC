@@ -48,4 +48,9 @@ public class ProductServiceImplement implements ProductService {
 		return this.productRepository.revenueStats();
 	}
 
+	@Override
+	public Product getProductById(int productId) {
+		return this.productRepository.getProductById(productId);
+	}
+
 }

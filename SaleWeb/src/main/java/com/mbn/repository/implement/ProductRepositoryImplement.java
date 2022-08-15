@@ -158,4 +158,17 @@ public class ProductRepositoryImplement implements ProductRepository {
 		Query query = session.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
+
+	@Override
+	public Product getProductById(int productId) {
+		Session session = sessionFactory.getObject().getCurrentSession();
+		try {
+			Product product = session.get(Product.class, productId);
+			product.setImage("https://cdn.tgdd.vn/Products/Images/522/238626/ipad-pro-2021-11-inch-silver-600x600.jpg");
+			return product;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
