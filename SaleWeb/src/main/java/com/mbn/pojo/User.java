@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,9 +21,11 @@ public class User implements Serializable {
 
 	private byte active;
 
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "{user.email.invalidErr}")
 	private String email;
 
 	@Column(name = "first_name")
+	@Size(min = 1, max = 50, message = "{user.firstName.sizeErr}")
 	private String firstName;
 
 	@Id
@@ -28,10 +33,12 @@ public class User implements Serializable {
 	private int id;
 
 	@Column(name = "last_name")
+	@Size(min = 1, max = 50, message = "{user.lastName.sizeErr}")
 	private String lastName;
-
+	@NotEmpty(message = "{user.password.sizeErr}")
 	private String password;
 
+	@Size(min = 10, max = 10, message = "{user.phone.sizeErr}")
 	private String phone;
 
 	@Column(name = "user_role")

@@ -11,12 +11,16 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.mbn.pojo.Comment;
 import com.mbn.pojo.User;
 import com.mbn.repository.CommentRepository;
 import com.mbn.service.ProductService;
+import com.mbn.service.UserService;
+import com.mysql.cj.protocol.Security;
 
 @Repository
 @Transactional
@@ -25,6 +29,8 @@ public class CommentRepositoryImplement implements CommentRepository {
 	private LocalSessionFactoryBean sessionFactory;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private UserService userDetailsService;
 
 	@Override
 	public List<Comment> getComments(int productId) {
@@ -46,7 +52,8 @@ public class CommentRepositoryImplement implements CommentRepository {
 			Comment comment = new Comment();
 			comment.setContent(content);
 			comment.setProduct(productService.getProductById(productId));
-			comment.setUser(session.get(User.class, 6));
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			comment.setUser(userDetailsService.getUserByUsername(authentication.getName()));
 			session.save(comment);
 			return comment;
 		} catch (Exception e) {

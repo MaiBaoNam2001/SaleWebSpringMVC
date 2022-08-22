@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <h1 class="text-center text-info mt-2">CHI TIẾT SẢN PHẨM</h1>
 
 <div class="container-fuild p-4">
@@ -24,17 +26,27 @@
 <p class="mx-3 fw-bold">Bình luận:</p>
 <div class="list-group mt-2" id="comment"></div>
 
-<div class="container-fluid">
-	<div class="form-group my-4">
-		<textarea class="form-control" placeholder="Nhập nội dung bình luận"
-			id="content"></textarea>
+<sec:authorize access="!isAuthenticated()">
+	<div class="mt-2">
+		<strong>Vui lòng <a href="<c:url value="/login"/>">Đăng
+				nhập</a> để bình luận.
+		</strong>
 	</div>
-	<div class="form-group">
-		<button class="btn btn-success"
-			onclick="addComment('${endpoint}', ${product.id})">Thêm bình
-			luận</button>
+</sec:authorize>
+
+<sec:authorize access="isAuthenticated()">
+	<div class="container-fluid">
+		<div class="form-group my-4">
+			<textarea class="form-control" placeholder="Nhập nội dung bình luận"
+				id="content"></textarea>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success"
+				onclick="addComment('${endpoint}', ${product.id})">Thêm
+				bình luận</button>
+		</div>
 	</div>
-</div>
+</sec:authorize>
 
 <script src="<c:url value="/js/comments.js"/>"></script>
 <script
