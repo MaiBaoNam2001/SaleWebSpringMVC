@@ -21,7 +21,7 @@
 							<fmt:setLocale value="vi_VN" />
 							<fmt:formatNumber value="${product.price}" type="currency" />
 						</p>
-						<a href="<c:url value="/admin/products/${product.id}"/>"
+						<a href="<c:url value="/products/${product.id}"/>"
 							class="btn btn-primary">Xem chi tiết</a>
 					</div>
 				</div>

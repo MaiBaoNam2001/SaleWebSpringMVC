@@ -15,6 +15,7 @@ com\mbn\configs\SpringSecurityConfig.class
 com\mbn\repository\implement\UserRepositoryImplement.class
 com\mbn\configs\SecurityWebApplicationInitializer.class
 com\mbn\repository\implement\ProductRepositoryImplement.class
+com\mbn\controllers\AdminProductController.class
 com\mbn\service\CommentService.class
 com\mbn\configs\HibernateConfig.class
 com\mbn\service\CategoryService.class
